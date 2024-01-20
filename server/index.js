@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
+const quizRoutes = require('./routes/quizRoutes');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/user', authRoutes);
+app.use('/quiz', quizRoutes);
 
 app.listen(process.env.PORT, () => {
     mongoose.connect(process.env.MONGODB_URL)
