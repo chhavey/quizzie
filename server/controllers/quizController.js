@@ -23,13 +23,12 @@ const createQuiz = async (req, res) => {
             questions,
             responseType,
             timer,
-            creator: name,
-            date: new Date(),
+            creator: name
         });
 
         await newQuiz.save();
 
-        res.json({
+        res.status(201).json({
             status: 'SUCCESS',
             message: "Quiz created successfully",
             id: newQuiz._id
@@ -40,4 +39,67 @@ const createQuiz = async (req, res) => {
     }
 }
 
-module.exports = { fetchAllQuiz, createQuiz }
+//Fetch quiz
+const fetchQuiz = async (req, res) => {
+    const quizId = req.params.quizId;
+
+    try {
+        const quiz = await Quiz.findById(quizId);
+
+        if (!quiz) {
+            return res.status(404).json({
+                status: 'FAILED',
+                message: 'Quiz not found.'
+            });
+        }
+
+        res.status(200).json(quiz);
+    } catch (error) {
+        errorHandler(res, error);
+    }
+}
+
+//Edit quiz
+const editQuiz = async (req, res) => {
+    const { title, type, questions, responseType, timer } = req.body;
+    const quizId = req.params.quizId;
+
+    try {
+        // Additional check for changing quiz type to 'Q&A'
+        if (type === 'Q&A') {
+            if (timer === undefined || timer === null) {
+                return res.status(400).json({
+                    status: 'FAILED',
+                    message: 'Timer is required for Q&A quizzes.',
+                });
+            }
+        }
+
+        await Quiz.findByIdAndUpdate(quizId, { title, type, questions, responseType, timer });
+        res.status(200).json({
+            status: "SUCCESS",
+            message: "Quiz updated successfully"
+        });
+    } catch (error) {
+        errorHandler(res, error);
+    }
+}
+
+//Delete quiz
+const deleteQuiz = async (req, res) => {
+    const quizId = req.params.quizId;
+    try {
+        await Quiz.findByIdAndDelete(quizId);
+        res.status(200).json({
+            status: 'SUCCESS',
+            message: "Quiz deleted successfully"
+        });
+
+    } catch (error) {
+        errorHandler(res, error);
+    }
+}
+
+
+
+module.exports = { fetchAllQuiz, createQuiz, fetchQuiz, editQuiz, deleteQuiz }
