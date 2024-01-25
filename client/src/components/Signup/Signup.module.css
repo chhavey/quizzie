@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  gap: 3rem;
+  font-family: "Poppins", sans-serif;
+}
+.formFields {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.labelname {
+  text-align: right;
+  color: var(--text-gray);
+  font-weight: 600;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 2rem;
+}
+
+.inputField {
+  width: 21rem;
+  background-color: #f4f4f4;
+  border: none;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  font-weight: 400;
+}
+
+.errorField::placeholder {
+  color: var(--red);
+  font-size: small;
+}
+.errorField {
+  width: 21rem;
+  background-color: #f4f4f4;
+  border: 1px solid var(--red);
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  font-weight: 400;
+}
+
+.btn {
+  align-self: center;
+  background-color: var(--button-color);
+  color: var(--text-gray);
+  font-weight: 600;
+  width: 17rem;
+  height: 2rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  border: none;
+}
+
+.btn:hover {
+  box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.4);
+}
