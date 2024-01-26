@@ -1,0 +1,48 @@
+.container {
+  background-color: var(--white);
+  border: none;
+  border-radius: 0.5rem;
+  height: 4.75rem;
+  width: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.25rem;
+}
+
+.title {
+  color: var(--text-gray);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.impression {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.impression span {
+  color: var(--red);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.date {
+  color: var(--green);
+  font-weight: 500;
+  font-size: small;
+  padding: 0.45rem 0 0 0.25rem;
+}
