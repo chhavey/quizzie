@@ -19,7 +19,7 @@ const login = async (email, password) => {
         return response.data.message;
 
     } catch (error) {
-        throw new Error(error.response.data.message || 'Login failed!');
+        throw new Error(error.message || 'Login failed!');
     }
 }
 
@@ -36,7 +36,7 @@ const register = async (name, email, password) => {
         return response.data.message;
 
     } catch (error) {
-        throw new Error(error.response.data.message || 'Registration failed!');
+        throw new Error(error.message || 'Registration failed!');
     }
 }
 

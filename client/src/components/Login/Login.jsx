@@ -15,9 +15,9 @@ function Login() {
       const response = await login(email, password);
       if (response) {
         navigate("/dashboard");
-        toast.success(response || "Login success.", {
-          duration: 4000,
-        });
+        // toast.success(response || "Login success.", {
+        //   duration: 4000,
+        // });
       }
     } catch (error) {
       toast.error(error.message || "Login failed.", {

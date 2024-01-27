@@ -21,27 +21,24 @@
   width: 85%;
   display: flex;
   justify-content: space-between;
-  padding: 3.5rem 0;
-  flex: 1;
+  align-items: center;
+  padding: 4rem 0;
 }
 
 .trendingQuiz {
   width: 85%;
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
-  margin-bottom: 3rem;
-  height: 100%;
+  max-height: 100%;
   overflow-y: auto;
 }
 
-.trendingQuiz p {
-  color: red;
+.trendingQuiz .error {
+  color: var(--green);
   align-self: center;
-}
-
-p span {
-  width: fit-content;
-  border: 1px solid rebeccapurple;
+  text-align: center;
+  margin: 4rem;
 }
 
 .heading {
@@ -52,11 +49,11 @@ p span {
 }
 
 .trendingGrid {
-  padding: 3rem 0;
+  margin-top: 3rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  border: 1px solid red;
+  margin-bottom: 3rem;
 }
 
 ::-webkit-scrollbar {
