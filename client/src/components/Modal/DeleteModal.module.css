@@ -1,0 +1,59 @@
+.container {
+  width: 45vw;
+  background-color: var(--white);
+  padding: 3rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-gray);
+}
+
+.text {
+  width: 80%;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  padding: 0 3rem;
+  margin-bottom: 2.25rem;
+}
+
+.buttons {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteBtn {
+  background-color: #ff4b4b;
+  color: var(--white);
+  padding: 0.25rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  width: 42%;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.deleteBtn:hover {
+  background-color: #ff0000;
+  transform: scale(1.05);
+}
+
+.cancelBtn {
+  box-shadow: 0px 0px 15px 0px #00000040;
+  padding: 0.25rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  width: 42%;
+  transition: box-shadow 0.5s ease;
+}
+
+.cancelBtn:hover {
+  box-shadow: 0px 0px 30px 0px #00000040;
+  transform: scale(1.05);
+}
