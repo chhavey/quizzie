@@ -15,6 +15,20 @@ const getAllQuiz = async ({ token }) => {
     }
 }
 
+const createQuiz = async ({ quizData, token }) => {
+    try {
+        const reqUrl = `http://localhost:4000/quiz/create`;
+        const response = await axios.post(reqUrl, {
+            headers: {
+                'Authorization': token,
+            }
+        });
+        return response.status;
+    } catch (error) {
+        throw new Error(error.message || 'Cannot create quiz');
+    }
+}
+
 const fetchQuiz = async ({ quizId, token }) => {
     try {
         const reqUrl = `http://localhost:4000/quiz/${quizId}`;
@@ -71,4 +85,4 @@ const deleteQuiz = async ({ quizId, token }) => {
     }
 }
 
-export { getAllQuiz, fetchQuiz, editQuiz, deleteQuiz, fetchAnalytics };
+export { getAllQuiz, createQuiz, fetchQuiz, editQuiz, deleteQuiz, fetchAnalytics };

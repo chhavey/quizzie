@@ -1,18 +1,18 @@
 import React from "react";
 import styles from "./DeleteModal.module.css";
-import { deleteQuiz } from "../../apis/quiz";
+import { deleteQuiz } from "../../../apis/quiz";
 import { toast, Toaster } from "react-hot-toast";
 
-function DeleteModal({ quizId, closeModal }) {
+function DeleteModal({ quizId, onClose }) {
   const handleCancel = () => {
-    closeModal();
+    onClose();
   };
 
   const handleConfirmDelete = async () => {
     const token = localStorage.getItem("token");
     try {
       await deleteQuiz({ quizId, token });
-      closeModal();
+      onClose();
       toast.success("Quiz deleted successfully");
     } catch (error) {
       toast.error(error.message || "Unable to delete quiz");

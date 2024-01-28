@@ -1,0 +1,12 @@
+.container {
+  width: 45vw;
+  background-color: var(--white);
+  padding: 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-gray);
+}

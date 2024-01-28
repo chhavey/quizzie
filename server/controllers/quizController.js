@@ -50,7 +50,6 @@ const createQuiz = async (req, res) => {
         } else {
             errorHandler(res, error);
         }
-        // console.log(error);
     }
 }
 

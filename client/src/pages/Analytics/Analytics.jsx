@@ -5,10 +5,26 @@ import InsightTable from "../../components/InsightTable/InsightTable";
 import { getAllQuiz } from "../../apis/quiz";
 import { ThreeDots } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
+import CreateModal from "../../components/Modal/CreateModal/CreateModal";
 
 function Analytics() {
   const [quizData, setQuizData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (isModalOpen && e.target.closest(`.${styles.modalBox}`) === null) {
+      setModalOpen(false);
+    }
+  };
 
   const fetchAllQuiz = async () => {
     const token = localStorage.getItem("token");
@@ -31,8 +47,15 @@ function Analytics() {
     <div className={styles.container}>
       <Toaster />
       <div className={styles.sidebar}>
-        <Sidebar />
+        <Sidebar openModal={openModal} />
       </div>
+      {isModalOpen && (
+        <div className={styles.overlay} onClick={handleOutsideClick}>
+          <div className={styles.modalBox}>
+            <CreateModal onClose={closeModal} />
+          </div>
+        </div>
+      )}
       <div
         className={styles.analyticsContainer}
         style={{ justifyContent: loading ? "center" : "flex-start" }}

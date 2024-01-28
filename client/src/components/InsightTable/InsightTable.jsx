@@ -6,13 +6,20 @@ import { ReactComponent as Share } from "../../assets/Share.svg";
 import { formatDate, formatNum } from "../../utils/formatUtils";
 import { Link } from "react-router-dom";
 import copy from "clipboard-copy";
-import DeleteModal from "../Modal/DeleteModal";
+import DeleteModal from "../Modal/DeleteModal/DeleteModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CreateModal from "./../Modal/CreateModal/CreateModal";
 
 function InsightTable({ quizData }) {
+  const [editModalVisible, setEditModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedQuizId, setSelectedQuizId] = useState(null);
+
+  const openEditModal = (quizId) => {
+    setSelectedQuizId(quizId);
+    setEditModalVisible(true);
+  };
 
   const openDeleteModal = (quizId) => {
     setSelectedQuizId(quizId);
@@ -21,6 +28,7 @@ function InsightTable({ quizData }) {
 
   const closeModal = () => {
     setSelectedQuizId(null);
+    setEditModalVisible(false);
     setDeleteModalVisible(false);
   };
 
@@ -40,9 +48,10 @@ function InsightTable({ quizData }) {
 
   const handleOutsideClick = (e) => {
     if (
-      deleteModalVisible &&
+      (editModalVisible || deleteModalVisible) &&
       e.target.closest(`.${styles.modalBox}`) === null
     ) {
+      setEditModalVisible(false);
       setDeleteModalVisible(false);
     }
   };
@@ -50,10 +59,17 @@ function InsightTable({ quizData }) {
   return (
     <div>
       <ToastContainer />
+      {editModalVisible && (
+        <div className={styles.overlay} onClick={handleOutsideClick}>
+          <div className={styles.modalBox}>
+            <CreateModal quizId={selectedQuizId} onClose={closeModal} />
+          </div>
+        </div>
+      )}
       {deleteModalVisible && (
         <div className={styles.overlay} onClick={handleOutsideClick}>
           <div className={styles.modalBox}>
-            <DeleteModal quizId={selectedQuizId} closeModal={closeModal} />
+            <DeleteModal quizId={selectedQuizId} onClose={closeModal} />
           </div>
         </div>
       )}
@@ -77,9 +93,7 @@ function InsightTable({ quizData }) {
               <td>{formatNum(quiz.impressions)}</td>
               <td>
                 <span className={styles.icons}>
-                  <Link to={`/edit`}>
-                    <Edit />
-                  </Link>
+                  <Edit onClick={() => openEditModal(quiz._id)} />
                   <Bin
                     style={{ marginTop: "2%" }}
                     onClick={() => openDeleteModal(quiz._id)}

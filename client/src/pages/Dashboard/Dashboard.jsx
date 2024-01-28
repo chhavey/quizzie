@@ -7,10 +7,26 @@ import { getAllQuiz } from "../../apis/quiz";
 import { formatNum } from "../../utils/formatUtils";
 import { ThreeDots } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
+import CreateModal from "../../components/Modal/CreateModal/CreateModal";
 
 function Dashboard() {
   const [details, setDetails] = useState();
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (isModalOpen && e.target.closest(`.${styles.modalBox}`) === null) {
+      setModalOpen(false);
+    }
+  };
 
   const fetchAllQuiz = async () => {
     const token = localStorage.getItem("token");
@@ -31,8 +47,15 @@ function Dashboard() {
   return (
     <div className={styles.container}>
       <div className={styles.sidebar}>
-        <Sidebar />
+        <Sidebar openModal={openModal} />
       </div>
+      {isModalOpen && (
+        <div className={styles.overlay} onClick={handleOutsideClick}>
+          <div className={styles.modalBox}>
+            <CreateModal onClose={closeModal} />
+          </div>
+        </div>
+      )}
       <Toaster />
       <div
         className={styles.dashboardContainer}

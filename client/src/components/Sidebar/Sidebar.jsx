@@ -2,18 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 
-function Sidebar() {
+function Sidebar({ openModal }) {
   const [selectedTab, setSelectedTab] = useState("dashboard");
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    const path = location.pathname.split("/")[1]; // Get the first part of the path
+    const path = location.pathname.split("/")[1];
     setSelectedTab(path || "dashboard");
   }, [location.pathname]);
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
+  };
+
+  const handleCreateQuiz = () => {
+    setSelectedTab("create");
+    openModal();
   };
 
   const handleLogout = () => {
@@ -44,15 +49,14 @@ function Sidebar() {
         >
           Analytics
         </Link>
-        <Link
-          to="/create-quiz"
+        <div
           className={`${styles.sidebarBtn} ${
-            selectedTab === "create-quiz" ? styles.selectedBtn : ""
+            selectedTab === "create" ? styles.selectedBtn : ""
           }`}
-          onClick={() => handleTabClick("create-quiz")}
+          onClick={handleCreateQuiz}
         >
           Create Quiz
-        </Link>
+        </div>
       </div>
       <div className={styles.logoutContainer} onClick={handleLogout}>
         LOGOUT
