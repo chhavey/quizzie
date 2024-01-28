@@ -68,7 +68,27 @@ const fetchQuiz = async (req, res) => {
 
         await Quiz.findByIdAndUpdate(quizId, { $inc: { impressions: 1 } });
 
+
         handleResponse(res, 200, 'Quiz fetched successfully', quiz);
+
+    } catch (error) {
+        errorHandler(res, error);
+    }
+}
+
+//Fetch quiz analytics
+const fetchAnalytics = async (req, res) => {
+    const quizId = req.params.quizId;
+
+    try {
+        const quiz = await Quiz.findById(quizId);
+
+        if (!quiz) {
+            handleResponse(res, 404, 'Quiz not found.');
+            return;
+        }
+
+        handleResponse(res, 200, 'Quiz analytics fetched successfully', quiz);
 
     } catch (error) {
         errorHandler(res, error);
@@ -165,4 +185,4 @@ const recordUserResponse = async (req, res) => {
 };
 
 
-module.exports = { fetchAllQuiz, createQuiz, fetchQuiz, editQuiz, deleteQuiz, recordUserResponse }
+module.exports = { fetchAllQuiz, createQuiz, fetchQuiz, fetchAnalytics, editQuiz, deleteQuiz, recordUserResponse }

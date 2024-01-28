@@ -1,0 +1,30 @@
+.container {
+  background-color: white;
+  border-radius: 0.25rem;
+  width: 25%;
+  min-height: 5rem;
+  padding: 0.5rem 0;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-gray);
+  margin: 1rem 0 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.label {
+  font-size: small;
+  font-weight: 600;
+  text-align: center;
+  margin-right: 0.25rem;
+}

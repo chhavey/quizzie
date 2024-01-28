@@ -29,6 +29,20 @@ const fetchQuiz = async ({ quizId, token }) => {
     }
 }
 
+const fetchAnalytics = async ({ quizId, token }) => {
+    try {
+        const reqUrl = `http://localhost:4000/quiz/analytics/${quizId}`;
+        const response = await axios.get(reqUrl, {
+            headers: {
+                'Authorization': token,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message || 'Cannot fetch quiz');
+    }
+}
+
 const editQuiz = async ({ quizId, quizDetails, token }) => {
     try {
         const reqUrl = `http://localhost:4000/quiz/${quizId}`;
@@ -57,4 +71,4 @@ const deleteQuiz = async ({ quizId, token }) => {
     }
 }
 
-export { getAllQuiz, fetchQuiz, editQuiz, deleteQuiz };
+export { getAllQuiz, fetchQuiz, editQuiz, deleteQuiz, fetchAnalytics };

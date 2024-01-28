@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import InfoCard from "../../components/InfoCard/InfoCard";
-import Trending from "../../components/TrendingCard/Trending";
+import InfoCard from "../../components/Cards/InfoCard/InfoCard";
+import Trending from "../../components/Cards/TrendingCard/Trending";
 import { getAllQuiz } from "../../apis/quiz";
 import { formatNum } from "../../utils/formatUtils";
 import { ThreeDots } from "react-loader-spinner";

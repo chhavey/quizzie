@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Trending.module.css";
-import { formatDate, formatNum } from "./../../utils/formatUtils";
-import { ReactComponent as Eye } from "../../assets/icon-park-outline_eyes.svg";
+import { formatDate, formatNum } from "../../../utils/formatUtils";
+import { ReactComponent as Eye } from "../../../assets/icon-park-outline_eyes.svg";
 
 function Trending({ title, impressions, createdOn }) {
   return (

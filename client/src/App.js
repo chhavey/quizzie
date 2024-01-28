@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/analytics" element={<Analytics />} />
-        <Route path="/analytics/:slug" element={<QuesAnalysis />} />
+        <Route path="/analytics/:quizId" element={<QuesAnalysis />} />
         <Route path="/" element={<Access />} />
       </Routes>
     </BrowserRouter>
