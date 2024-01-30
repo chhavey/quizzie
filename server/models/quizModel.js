@@ -1,9 +1,17 @@
 const mongoose = require('mongoose');
 
 const responseSchema = new mongoose.Schema({
-    option: {
+    text: {
         type: String,
-        required: true,
+        required: function () {
+            return this.parent().responseType === 'Text' || this.parent().responseType === 'Text-Image';
+        },
+    },
+    image: {
+        type: String,
+        required: function () {
+            return this.parent().responseType === 'Image' || this.parent().responseType === 'Text-Image';
+        },
     },
     frequency: {
         type: Number,
@@ -30,6 +38,11 @@ const questionSchema = new mongoose.Schema({
             return this.parent().type === 'Q&A';
         },
     },
+    responseType: {
+        type: String,
+        enum: ['Text', 'Image', 'Text-Image'],
+        required: true,
+    },
     totalAttempts: {
         type: Number,
         default: 0
@@ -55,18 +68,14 @@ const quizSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['poll', 'Q&A'],
+        enum: ['Poll', 'Q&A'],
         required: true,
     },
     questions: {
         type: [questionSchema],
         required: true,
     },
-    responseType: {
-        type: String,
-        enum: ['Text', 'Image', 'Text-Image'],
-        required: true,
-    },
+
     impressions: {
         type: Number,
         default: 0,

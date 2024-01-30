@@ -25,17 +25,16 @@ const fetchAllQuiz = async (req, res) => {
 
 //Create new quiz
 const createQuiz = async (req, res) => {
-    const { title, type, questions, responseType, timer } = req.body;
+    const { title, type, questions, timer } = req.body;
     const { name } = req.body.user;
 
     try {
-        validateQuizFields(title, type, questions, responseType, timer);
+        validateQuizFields(title, type, questions, timer);
         validateQuestions(questions, type);
         const newQuiz = new Quiz({
             title,
             type,
             questions,
-            responseType,
             timer,
             creator: name
         });
@@ -96,12 +95,12 @@ const fetchAnalytics = async (req, res) => {
 
 //Edit quiz
 const editQuiz = async (req, res) => {
-    const { title, type, questions, responseType, timer } = req.body;
+    const { title, type, questions, timer } = req.body;
     const quizId = req.params.quizId;
     try {
-        validateQuizFields(title, type, questions, responseType, timer);
+        validateQuizFields(title, type, questions, timer);
         validateQuestions(questions, type);
-        const result = await Quiz.findByIdAndUpdate(quizId, { title, type, questions, responseType, timer });
+        const result = await Quiz.findByIdAndUpdate(quizId, { title, type, questions, timer });
 
         if (!result) {
             handleResponse(res, 404, 'Quiz not found.');

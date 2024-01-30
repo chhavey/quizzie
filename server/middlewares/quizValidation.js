@@ -1,6 +1,6 @@
 // Validate quiz fields
-const validateQuizFields = (title, type, questions, responseType, timer) => {
-    if (!title || !type || !questions || !responseType) {
+const validateQuizFields = (title, type, questions, timer) => {
+    if (!title || !type || !questions) {
         throw { status: 400, message: 'All fields are required.' };
     }
 

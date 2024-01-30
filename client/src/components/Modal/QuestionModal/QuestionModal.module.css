@@ -1,0 +1,282 @@
+.container {
+  width: 47vw;
+  background-color: var(--white);
+  padding: 0 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-gray);
+}
+
+.addQuestions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 1rem;
+}
+
+.addQuestionWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.quesNumber {
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5rem;
+  box-shadow: 0px 0px 10px 0px #00000026;
+  color: var(--label-gray);
+  position: relative;
+}
+
+.addBtn,
+.maxQuesLabel {
+  color: #969696;
+  font-size: 1.5rem;
+}
+
+.maxQuesLabel {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.addBtn:hover,
+.quesNumber:hover {
+  cursor: pointer;
+}
+
+.quizName {
+  width: 90%;
+  border: none;
+  box-shadow: 0px 0px 25px 0px #00000026;
+  border-radius: 0.25rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  color: var(--text-gray);
+  font-weight: 500;
+}
+.quizName::placeholder {
+  color: var(--label-gray);
+}
+
+.label {
+  color: var(--label-gray);
+  font-weight: 500;
+}
+
+.optionTypeWrapper {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.optionTypeWrapper .label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.radioGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.optionsAndTimerWrapper {
+  width: 90%;
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  justify-content: space-between;
+}
+
+.leftWrapper {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: -1.3rem;
+}
+
+.pollLeftWrapper {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.radioAndOptionWrapper,
+.optionWrapper {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+.optionAndBin {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+}
+
+.addOptionBtn {
+  max-width: 75%;
+  text-align: center;
+  color: var(--label-gray);
+  cursor: pointer;
+  margin-left: 1.3rem;
+}
+
+.addPollOptionBtn {
+  max-width: 80%;
+  text-align: center;
+  color: var(--label-gray);
+  cursor: pointer;
+}
+
+.optionInput,
+.addOptionBtn,
+.addPollOptionBtn {
+  background-color: var(--white);
+  box-shadow: 0px 0px 25px 0px #00000026;
+  border-radius: 0.45rem;
+  border: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.35rem 1rem;
+  width: 80%;
+}
+
+.addOptionBtn:hover,
+.addPollOptionBtn:hover {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.optionInput::placeholder {
+  color: var(--label-gray);
+}
+
+.rightWrapper {
+  display: flex;
+  align-items: flex-end;
+  width: 25%;
+}
+
+.timerWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.75rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.timerBtn {
+  box-shadow: 0px 0px 15px 0px #00000026;
+  padding: 0.45rem 1.1rem;
+  border-radius: 0.75rem;
+  font-size: small;
+  color: var(--label-gray);
+  font-weight: 500;
+  background-color: var(--white);
+}
+
+.selectedTimer {
+  background-color: var(--delete-red);
+  color: var(--white);
+}
+
+.timerBtn:hover {
+  cursor: pointer;
+}
+
+.removeOptionBtn {
+  background-color: none;
+  border: none;
+  align-self: center;
+}
+
+.removeOptionBtn:hover {
+  cursor: pointer;
+  background-color: none;
+}
+
+.buttonContainer {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.cancelBtn {
+  box-shadow: 0px 0px 15px 0px #00000040;
+  background-color: var(--white);
+  width: 40%;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  padding: 0.25rem 0;
+  font-weight: 500;
+  color: var(--text-gray);
+}
+.cancelBtn:hover {
+  background-color: #e87c7c;
+  cursor: pointer;
+  color: var(--white);
+}
+
+.continueBtn {
+  background-color: var(--green);
+  width: 40%;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  padding: 0.25rem 0;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.continueBtn:hover {
+  cursor: pointer;
+  background-color: #2d7e18;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  font-size: xx-small;
+  font-weight: 500;
+  color: var(--text-gray);
+  position: absolute;
+  top: 0;
+  left: 1.65rem;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  padding: 0;
+}
+.removeBtn:hover {
+  background-color: #e87c7c;
+  cursor: pointer;
+  color: var(--white);
+}

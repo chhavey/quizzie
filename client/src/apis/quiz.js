@@ -18,7 +18,7 @@ const getAllQuiz = async ({ token }) => {
 const createQuiz = async ({ quizData, token }) => {
     try {
         const reqUrl = `http://localhost:4000/quiz/create`;
-        const response = await axios.post(reqUrl, {
+        const response = await axios.post(reqUrl, quizData, {
             headers: {
                 'Authorization': token,
             }
