@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import styles from "./CreateModal.module.css";
 import QuestionModal from "../QuestionModal/QuestionModal";
+import { ReactComponent as Close } from "../../../assets/Close.svg";
+import copy from "clipboard-copy";
+import { ToastContainer, toast } from "react-toastify";
 
 function CreateModal({ onClose }) {
   const [step, setStep] = useState(1);
   const [quizName, setQuizName] = useState("");
   const [quizType, setQuizType] = useState("");
+  const [newQuizId, setNewQuizId] = useState(null);
+
+  const handleGetNewId = (newId) => {
+    setNewQuizId(newId);
+  };
 
   const handleContinue = () => {
     if (step === 1) {
@@ -25,6 +33,20 @@ function CreateModal({ onClose }) {
 
   const handleQuizTypeChange = (type) => {
     setQuizType(type);
+  };
+
+  const handleShare = async (quizId) => {
+    if (!quizId) {
+      toast.error("Cannot copy link");
+      return;
+    }
+    const path = `http://localhost:4000/quiz/${quizId}`; ///to be replaced with deployed backend link
+    try {
+      await copy(path);
+      toast.success("Link copied to clipboard");
+    } catch (error) {
+      toast.error("Cannot copy link");
+    }
   };
 
   return (
@@ -72,18 +94,29 @@ function CreateModal({ onClose }) {
           quizName={quizName}
           onClose={onClose}
           nextStep={() => setStep(3)}
+          onData={handleGetNewId}
         />
       )}
 
       {step === 3 && (
-        <>
-          <div>
-            <p>Yay! Your quiz is created.</p>
+        <div className={styles.shareLinkContainer}>
+          <ToastContainer />
+          <Close className={styles.closeBtn} onClick={onClose} />
+          <div className={styles.congratsMessage}>
+            Congrats your Quiz is Published!
           </div>
-          <div className={styles.buttonContainer}>
-            <button onClick={onClose}>OK</button>
+          <div className={styles.linkContainer}>
+            <p>{`localhost:4000/quiz/${newQuizId}`}</p>
           </div>
-        </>
+          <div className={styles.shareBtnContainer}>
+            <div
+              className={styles.shareBtn}
+              onClick={() => handleShare(newQuizId)}
+            >
+              Share
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

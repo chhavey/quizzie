@@ -3,7 +3,7 @@ import styles from "./QuestionModal.module.css";
 import { ReactComponent as Bin } from "../../../assets/Bin.svg";
 import { createQuiz } from "../../../apis/quiz";
 
-function QuestionModal({ quizType, quizName, onClose, nextStep }) {
+function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
   const [quesNum, setQuesNum] = useState([1]);
   const [currentQuesNum, setCurrentQuesNum] = useState(0);
   const [timer, setTimer] = useState(0);
@@ -33,7 +33,7 @@ function QuestionModal({ quizType, quizName, onClose, nextStep }) {
     const token = localStorage.getItem("token");
     try {
       const response = await createQuiz({ quizData, token });
-      return response.status;
+      return response.data.data.id;
     } catch (error) {
       console.log(error);
     }
@@ -131,8 +131,9 @@ function QuestionModal({ quizType, quizName, onClose, nextStep }) {
     onClose();
   };
 
-  const handleContinue = () => {
-    quizCreate();
+  const handleContinue = async () => {
+    const res = await quizCreate();
+    onData(res);
     nextStep();
   };
 
