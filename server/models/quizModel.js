@@ -81,8 +81,8 @@ const quizSchema = new mongoose.Schema({
         default: 0,
     },
     timer: {
-        type: Number,
-        enum: [0, 5, 10],
+        type: String,
+        enum: ['off', '5', '10'],
         required: function () {
             return this.type === 'Q&A';
         },

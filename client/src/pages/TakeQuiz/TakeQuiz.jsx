@@ -11,7 +11,7 @@ function TakeQuiz() {
   const { quizId } = useParams();
   const [quizData, setQuizData] = useState(null);
   const [quizType, setQuizType] = useState("");
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState("off");
   const [currentQuesNum, setCurrentQuesNum] = useState(0);
   const [userResponses, setUserResponses] = useState([]);
   const [isQuizSubmitted, setIsQuizSubmitted] = useState(false);
@@ -69,7 +69,7 @@ function TakeQuiz() {
     if (!quizData) {
       return;
     }
-    if (timer > 1) {
+    if (timer > 0) {
       setTimer((prevTimer) => prevTimer - 1);
     } else {
       // Timer expired, move to the next question or submit quiz
@@ -82,8 +82,10 @@ function TakeQuiz() {
   };
 
   useEffect(() => {
-    const countdownInterval = setInterval(handleTimer, 1000);
-    return () => clearInterval(countdownInterval);
+    if (timer !== "off" && quizType === "Q&A") {
+      const countdownInterval = setInterval(handleTimer, 1000);
+      return () => clearInterval(countdownInterval);
+    }
     // eslint-disable-next-line
   }, [currentQuesNum, timer, quizData]);
 
@@ -130,14 +132,28 @@ function TakeQuiz() {
                     <img src={option.image} alt={`img${index + 1}`} />
                   )}
                   {currentQuestion.responseType === "Text-Image" && (
-                    <div className={styles.textImage}>
-                      <p>{option.text}</p>
-                      <img
-                        className={styles.imgWrapper}
-                        src={option.image}
-                        alt={`img${index + 1}`}
-                      />
-                    </div>
+                    <>
+                      {quizType === "Q&A" && (
+                        <div className={styles.textImage}>
+                          <p>{option.text}</p>
+                          <img
+                            className={styles.imgWrapper}
+                            src={option.image}
+                            alt={`img${index + 1}`}
+                          />
+                        </div>
+                      )}
+                      {quizType === "Poll" && (
+                        <>
+                          <div className={styles.pollTextImage}>
+                            <p className={styles.pollOptionText}>
+                              {option.text}
+                            </p>
+                            <img src={option.image} alt={`img${index + 1}`} />
+                          </div>
+                        </>
+                      )}
+                    </>
                   )}
                 </div>
               ))}

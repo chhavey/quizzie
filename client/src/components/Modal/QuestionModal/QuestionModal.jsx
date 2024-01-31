@@ -15,7 +15,7 @@ function QuestionModal({
 }) {
   const [quesNum, setQuesNum] = useState([1]);
   const [currentQuesNum, setCurrentQuesNum] = useState(0);
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState("off");
   const token = localStorage.getItem("token");
   const [questionData, setQuestionData] = useState([
     {
@@ -36,6 +36,8 @@ function QuestionModal({
     questions: questionData,
     timer: timer,
   };
+
+  console.log(quizData);
 
   const quizCreate = async () => {
     try {
@@ -156,7 +158,7 @@ function QuestionModal({
     const isInvalid = questionData.some((question) => {
       const isQuestionInvalid =
         !question.question.trim() ||
-        question.options.slice(0, 2).some((option) => !option.text.trim()) ||
+        question.options.some((option) => !option.text.trim()) ||
         !question.responseType.trim();
 
       // Only validate correctOption for Q&A type
@@ -408,25 +410,25 @@ function QuestionModal({
                     <div className={styles.label}>Timer</div>
                     <div
                       className={`${styles.timerBtn} ${
-                        timer === 0 ? styles.selectedTimer : ""
+                        timer === "off" ? styles.selectedTimer : ""
                       }`}
-                      onClick={() => handleTimer(0)}
+                      onClick={() => handleTimer("off")}
                     >
                       OFF
                     </div>
                     <div
                       className={`${styles.timerBtn} ${
-                        timer === 5 ? styles.selectedTimer : ""
+                        timer === "5" ? styles.selectedTimer : ""
                       }`}
-                      onClick={() => handleTimer(5)}
+                      onClick={() => handleTimer("5")}
                     >
                       5 Sec
                     </div>
                     <div
                       className={`${styles.timerBtn} ${
-                        timer === 10 ? styles.selectedTimer : ""
+                        timer === "10" ? styles.selectedTimer : ""
                       }`}
-                      onClick={() => handleTimer(10)}
+                      onClick={() => handleTimer("10")}
                     >
                       10 Sec
                     </div>

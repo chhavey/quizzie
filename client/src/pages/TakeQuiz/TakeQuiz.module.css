@@ -32,11 +32,11 @@
 
 .optionsContainer {
   width: 90%;
-  max-height: 60vh;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 2.5rem;
 }
 
 .option,
@@ -101,6 +101,25 @@
 .nextBtn:hover {
   cursor: pointer;
   background-color: #2d7e18;
+}
+
+.pollTextImage {
+  position: relative;
+}
+
+.pollTextImage img {
+  max-height: 17vh;
+}
+
+.pollOptionText {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 5px;
+  /* background-color: rgba(0, 0, 0, 0.01); */
 }
 
 /* Media query for desktop */

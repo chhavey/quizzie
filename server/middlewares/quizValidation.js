@@ -4,7 +4,7 @@ const validateQuizFields = (title, type, questions, timer) => {
         throw { status: 400, message: 'All fields are required.' };
     }
 
-    if (type === 'Q&A' && (timer === undefined || timer === null)) {
+    if (type === 'Q&A' && (timer === '')) {
         throw { status: 400, message: 'Timer is required for Q&A quizzes.' };
     }
 };
