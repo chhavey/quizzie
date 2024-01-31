@@ -4,6 +4,7 @@ import QuestionModal from "../QuestionModal/QuestionModal";
 import { ReactComponent as Close } from "../../../assets/Close.svg";
 import copy from "clipboard-copy";
 import { ToastContainer, toast } from "react-toastify";
+import { Toaster, toast as hotToast } from "react-hot-toast";
 
 function CreateModal({ onClose }) {
   const [step, setStep] = useState(1);
@@ -17,6 +18,17 @@ function CreateModal({ onClose }) {
 
   const handleContinue = () => {
     if (step === 1) {
+      if (!quizName.trim()) {
+        hotToast.error(
+          "Hold on! Every quiz needs a name. What will you call it?"
+        );
+        return;
+      } else if (!quizType) {
+        hotToast.error(
+          "Oops! You forgot to choose a quiz type. Is it a Q&A or a Poll?"
+        );
+        return;
+      }
       setStep(2);
     } else if (step === 2) {
       setStep(3);
@@ -40,7 +52,7 @@ function CreateModal({ onClose }) {
       toast.error("Cannot copy link");
       return;
     }
-    const path = `http://localhost:3000/quiz/${quizId}`; ///to be replaced with deployed backend link
+    const path = `http://localhost:3000/quiz/${quizId}`; ///to be replaced with live url
     try {
       await copy(path);
       toast.success("Link copied to clipboard");
@@ -51,11 +63,13 @@ function CreateModal({ onClose }) {
 
   return (
     <div className={styles.container}>
+      <Toaster />
       {step === 1 && (
         <>
           <div className={styles.nameWrapper}>
             <input
               type="text"
+              name="quizName"
               value={quizName}
               onChange={(e) => setQuizName(e.target.value)}
               className={styles.quizName}
@@ -63,7 +77,7 @@ function CreateModal({ onClose }) {
             />
           </div>
           <div className={styles.typeWrapper}>
-            <label className={styles.label}>Quiz Type</label>
+            <p className={styles.label}>Quiz Type</p>
             <button
               onClick={() => handleQuizTypeChange("Q&A")}
               className={quizType === "Q&A" ? styles.selected : styles.Btn}
@@ -106,6 +120,7 @@ function CreateModal({ onClose }) {
             Congrats your Quiz is Published!
           </div>
           <div className={styles.linkContainer}>
+            {/* replace with live url */}
             <p>{`http://localhost:3000/quiz/${newQuizId}`}</p>
           </div>
           <div className={styles.shareBtnContainer}>

@@ -37,7 +37,7 @@ function InsightTable({ quizData }) {
       toast.error("Cannot copy link");
       return;
     }
-    const path = `localhost:4000/quiz/${quizId}`;
+    const path = `http://localhost:3000/quiz/${quizId}`; //replace with live url
     try {
       await copy(path);
       toast.success("Link copied to clipboard");

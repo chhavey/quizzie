@@ -7,12 +7,28 @@ import { toast, Toaster } from "react-hot-toast";
 import { formatDate, formatNum } from "../../utils/formatUtils";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import AnalysisCard from "../../components/Cards/AnalysisCard/AnalysisCard";
+import CreateModal from "../../components/Modal/CreateModal/CreateModal";
 
 function QuesAnalysis() {
   const [loading, setLoading] = useState(true);
   const [analysisData, setAnalysisData] = useState([]);
   const [quesType, setQuesType] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
   const { quizId } = useParams();
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (isModalOpen && e.target.closest(`.${styles.modalBox}`) === null) {
+      setModalOpen(false);
+    }
+  };
 
   const getQuizAnalytics = async () => {
     const token = localStorage.getItem("token");
@@ -79,9 +95,16 @@ function QuesAnalysis() {
   return (
     <div className={styles.container}>
       <div className={styles.sidebar}>
-        <Sidebar />
+        <Sidebar openModal={openModal} />
       </div>
       <Toaster />
+      {isModalOpen && (
+        <div className={styles.overlay} onClick={handleOutsideClick}>
+          <div className={styles.modalBox}>
+            <CreateModal onClose={closeModal} />
+          </div>
+        </div>
+      )}
       <div
         className={styles.analyticsContainer}
         style={{ justifyContent: loading ? "center" : "flex-start" }}

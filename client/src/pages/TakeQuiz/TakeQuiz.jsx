@@ -106,7 +106,9 @@ function TakeQuiz() {
                 {formatNum(currentQuesNum + 1)}/
                 {formatNum(quizData.questions.length)}
               </p>
-              <p className={styles.timer}>{`00:${formatNum(timer)}s`}</p>
+              {timer > 0 && (
+                <p className={styles.timer}>{`00:${formatNum(timer)}s`}</p>
+              )}
             </div>
             <p className={styles.questionText}>{currentQuestion.question}</p>
 

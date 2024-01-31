@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./QuestionModal.module.css";
 import { ReactComponent as Bin } from "../../../assets/Bin.svg";
 import { createQuiz } from "../../../apis/quiz";
+import { toast, Toaster } from "react-hot-toast";
 
 function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
   const [quesNum, setQuesNum] = useState([1]);
@@ -27,15 +28,13 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
     timer: timer,
   };
 
-  console.log("full quiz data", quizData);
-
   const quizCreate = async () => {
     const token = localStorage.getItem("token");
     try {
       const response = await createQuiz({ quizData, token });
       return response.data.data.id;
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Error creating quiz");
     }
   };
 
@@ -132,6 +131,26 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
   };
 
   const handleContinue = async () => {
+    const isInvalid = questionData.some((question) => {
+      const isQuestionInvalid =
+        !question.question.trim() ||
+        question.options.slice(0, 2).some((option) => !option.text.trim()) ||
+        !question.responseType.trim();
+
+      // Only validate correctOption for Q&A type
+      const isCorrectOptionInvalid =
+        quizType === "Q&A" && !question.correctOption.trim();
+
+      return isQuestionInvalid || isCorrectOptionInvalid;
+    });
+
+    if (isInvalid) {
+      toast.error(
+        "Uh-oh! Fill in all the fields to craft your quiz masterpiece"
+      );
+      return;
+    }
+
     const res = await quizCreate();
     onData(res);
     nextStep();
@@ -139,6 +158,7 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
 
   return (
     <div className={styles.container}>
+      <Toaster />
       <div className={styles.addQuestions}>
         <div className={styles.addQuestionWrapper}>
           {quesNum.map((num, index) => (
@@ -177,7 +197,7 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
       />
 
       <div className={styles.optionTypeWrapper}>
-        <label className={styles.label}>Option Type</label>
+        <p className={styles.label}>Option Type</p>
         <div className={styles.radioGroup}>
           <div className={styles.radio}>
             <input
@@ -187,7 +207,7 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
               checked={questionData[currentQuesNum]?.responseType === "Text"}
               onChange={handleQuestionChange}
             />
-            <label className={styles.label}> Text </label>
+            <p className={styles.label}> Text </p>
           </div>
           <div className={styles.radio}>
             <input
@@ -197,7 +217,7 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
               checked={questionData[currentQuesNum]?.responseType === "Image"}
               onChange={handleQuestionChange}
             />
-            <label className={styles.label}>Image URL</label>
+            <p className={styles.label}>Image URL</p>
           </div>
           <div className={styles.radio}>
             <input
@@ -209,7 +229,7 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
               }
               onChange={handleQuestionChange}
             />
-            <label className={styles.label}>Text & Image URL</label>
+            <p className={styles.label}>Text & Image URL</p>
           </div>
         </div>
       </div>
