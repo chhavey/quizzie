@@ -95,18 +95,17 @@ const fetchAnalytics = async (req, res) => {
 
 //Edit quiz
 const editQuiz = async (req, res) => {
-    const { title, type, questions, timer } = req.body;
+    const { questions, timer } = req.body;
     const quizId = req.params.quizId;
     try {
-        validateQuizFields(title, type, questions, timer);
-        validateQuestions(questions, type);
-        const result = await Quiz.findByIdAndUpdate(quizId, { title, type, questions, timer });
+        const result = await Quiz.findByIdAndUpdate(quizId, { questions, timer });
 
         if (!result) {
             handleResponse(res, 404, 'Quiz not found.');
             return;
         }
-        handleResponse(res, 200, 'Quiz updated successfully');
+        handleResponse(res, 200, 'Quiz updated successfully', { id: quizId });
+
     } catch (error) {
         if (error.status && error.status === 400) {
             handleResponse(res, 400, error.message);

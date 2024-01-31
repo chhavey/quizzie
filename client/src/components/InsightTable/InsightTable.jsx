@@ -63,7 +63,11 @@ function InsightTable({ quizData }) {
       {editModalVisible && (
         <div className={styles.overlay} onClick={handleOutsideClick}>
           <div className={styles.modalBox}>
-            <CreateModal quizId={selectedQuizId} onClose={closeModal} />
+            <CreateModal
+              editQuizId={selectedQuizId}
+              edit={true}
+              onClose={closeModal}
+            />
           </div>
         </div>
       )}

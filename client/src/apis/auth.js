@@ -4,6 +4,7 @@ import { backendUrl } from '../config/config';
 const login = async (email, password) => {
     try {
         const reqUrl = `${backendUrl}/user/login`;
+        // const reqUrl = `http://localhost:4000/user/login`;
         const reqPayload = {
             email: email,
             password: password
@@ -18,13 +19,18 @@ const login = async (email, password) => {
         return response.data.message;
 
     } catch (error) {
-        throw new Error(error.message || 'Login failed!');
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message);
+        } else {
+            throw new Error('Login failed!');
+        }
     }
 }
 
 const register = async (name, email, password) => {
     try {
         const reqUrl = `${backendUrl}/user/register`;
+        // const reqUrl = `http://localhost:4000/user/register`;
         const reqPayload = {
             name: name,
             email: email,
@@ -35,7 +41,11 @@ const register = async (name, email, password) => {
         return response.data.message;
 
     } catch (error) {
-        throw new Error(error.message || 'Registration failed!');
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message);
+        } else {
+            throw new Error('Registration failed!');
+        }
     }
 }
 

@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import styles from "./QuestionModal.module.css";
 import { ReactComponent as Bin } from "../../../assets/Bin.svg";
-import { createQuiz } from "../../../apis/quiz";
+import { createQuiz, editQuiz } from "../../../apis/quiz";
 import { toast, Toaster } from "react-hot-toast";
 
-function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
+function QuestionModal({
+  quizType,
+  quizName,
+  onClose,
+  nextStep,
+  onData,
+  editQuizId,
+  edit,
+}) {
   const [quesNum, setQuesNum] = useState([1]);
   const [currentQuesNum, setCurrentQuesNum] = useState(0);
   const [timer, setTimer] = useState(0);
+  const token = localStorage.getItem("token");
   const [questionData, setQuestionData] = useState([
     {
       question: "",
@@ -29,12 +38,25 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
   };
 
   const quizCreate = async () => {
-    const token = localStorage.getItem("token");
     try {
       const response = await createQuiz({ quizData, token });
       return response.data.data.id;
     } catch (error) {
       toast.error(error.message || "Error creating quiz");
+    }
+  };
+
+  const updateQuiz = async () => {
+    try {
+      const response = await editQuiz(
+        editQuizId,
+        { questionData, timer },
+        token
+      );
+      console.log(response);
+      return response.data.data.id;
+    } catch (error) {
+      toast.error(error.message || "Error updating quiz");
     }
   };
 
@@ -151,8 +173,13 @@ function QuestionModal({ quizType, quizName, onClose, nextStep, onData }) {
       return;
     }
 
-    const res = await quizCreate();
-    onData(res);
+    if (edit) {
+      const res = await updateQuiz();
+      onData(res);
+    } else {
+      const res = await quizCreate();
+      onData(res);
+    }
     nextStep();
   };
 

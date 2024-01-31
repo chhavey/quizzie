@@ -7,8 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { Toaster, toast as hotToast } from "react-hot-toast";
 import { frontendUrl } from "../../../config/config";
 
-function CreateModal({ onClose }) {
-  const [step, setStep] = useState(1);
+function CreateModal({ editQuizId, edit, onClose }) {
+  const [step, setStep] = useState(edit ? 2 : 1);
   const [quizName, setQuizName] = useState("");
   const [quizType, setQuizType] = useState("");
   const [newQuizId, setNewQuizId] = useState(null);
@@ -110,6 +110,8 @@ function CreateModal({ onClose }) {
           onClose={onClose}
           nextStep={() => setStep(3)}
           onData={handleGetNewId}
+          editQuizId={editQuizId}
+          edit={edit}
         />
       )}
 
@@ -118,10 +120,11 @@ function CreateModal({ onClose }) {
           <ToastContainer />
           <Close className={styles.closeBtn} onClick={onClose} />
           <div className={styles.congratsMessage}>
-            Congrats your Quiz is Published!
+            {edit
+              ? "Your quiz has been updated! 🚀"
+              : "Congrats your Quiz is Published!"}
           </div>
           <div className={styles.linkContainer}>
-            {/* replace with live url */}
             <p>{`${frontendUrl}/quiz/${newQuizId}`}</p>
           </div>
           <div className={styles.shareBtnContainer}>

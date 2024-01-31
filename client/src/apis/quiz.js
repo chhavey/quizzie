@@ -4,6 +4,7 @@ import { backendUrl } from '../config/config';
 const getAllQuiz = async ({ token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/all`;
+        // const reqUrl = `http://localhost:4000/quiz/all`;
         const response = await axios.get(reqUrl, {
             headers: {
                 'Authorization': token,
@@ -12,13 +13,20 @@ const getAllQuiz = async ({ token }) => {
         return response.data;
     }
     catch (error) {
-        throw new Error(error.message || 'Cannot fetch all quizzes');
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message);
+        } else if (error.message === 'Internal Server Error') {
+            throw new Error('Unable to connect to the server. Please check your internet connection.');
+        } else {
+            throw new Error('Cannot fetch all quizzes. Please try again later.');
+        }
     }
 }
 
 const createQuiz = async ({ quizData, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/create`;
+        // const reqUrl = `http://localhost:4000/quiz/create`;
         const response = await axios.post(reqUrl, quizData, {
             headers: {
                 'Authorization': token,
@@ -26,13 +34,20 @@ const createQuiz = async ({ quizData, token }) => {
         });
         return response;
     } catch (error) {
-        throw new Error(error.message || 'Cannot create quiz');
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message);
+        } else if (error.message === "Internal Server Error") {
+            throw new Error('Unable to connect to the server. Please check your internet connection.');
+        } else {
+            throw new Error('Cannot create quiz. Please try again later.');
+        }
     }
 }
 
 const fetchQuiz = async ({ quizId, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}`;
+        // const reqUrl = `http://localhost:4000/quiz/${quizId}`;
         const response = await axios.get(reqUrl, {
             headers: {
                 'Authorization': token,
@@ -40,13 +55,20 @@ const fetchQuiz = async ({ quizId, token }) => {
         });
         return response.data;
     } catch (error) {
-        throw new Error(error.message || 'Cannot fetch quiz');
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message);
+        } else if (error.message === 'Internal Server Error') {
+            throw new Error('Unable to connect to the server. Please check your internet connection.');
+        } else {
+            throw new Error('Cannot fetch quiz details. Please try again later.');
+        }
     }
 }
 
 const fetchAnalytics = async ({ quizId, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/analytics/${quizId}`;
+        // const reqUrl = `http://localhost:4000/quiz/analytics/${quizId}`;
         const response = await axios.get(reqUrl, {
             headers: {
                 'Authorization': token,
@@ -54,27 +76,46 @@ const fetchAnalytics = async ({ quizId, token }) => {
         });
         return response.data;
     } catch (error) {
-        throw new Error(error.message || 'Cannot fetch quiz');
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message);
+        } else if (error.message === 'Internal Server Error') {
+            throw new Error('Unable to connect to the server. Please check your internet connection.');
+        } else {
+            throw new Error('Cannot fetch quiz analytics. Please try again later.');
+        }
     }
 }
 
-const editQuiz = async ({ quizId, quizDetails, token }) => {
+const editQuiz = async (quizId, { questionData, timer }, token) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}`;
+        // const reqUrl = `http://localhost:4000/quiz/${quizId}`;
+        const quizDetails = {
+            questions: questionData,
+            timer: timer,
+        };
+        console.log(quizDetails);
         const response = await axios.put(reqUrl, quizDetails, {
             headers: {
                 'Authorization': token,
             }
         });
-        return response.status;
+        return response;
     } catch (error) {
-        throw new Error(error.message || 'Cannot edit quiz');
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message);
+        } else if (error.message === 'Internal Server Error') {
+            throw new Error('Unable to connect to the server. Please check your internet connection.');
+        } else {
+            throw new Error('Cannot edit quiz. Please try again later.');
+        }
     }
 }
 
 const deleteQuiz = async ({ quizId, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}`
+        // const reqUrl = `http://localhost:4000/quiz/${quizId}`
         const response = await axios.delete(reqUrl, {
             headers: {
                 'Authorization': token,
@@ -82,7 +123,13 @@ const deleteQuiz = async ({ quizId, token }) => {
         })
         return response.status;
     } catch (error) {
-        throw new Error(error.message || 'Cannot delete quiz');
+        if (error.response && error.response.data) {
+            throw new Error(error.response.data.message);
+        } else if (error.message === 'Internal Server Error') {
+            throw new Error('Unable to connect to the server. Please check your internet connection.');
+        } else {
+            throw new Error('Cannot delete quiz. Please try again later.');
+        }
     }
 }
 
@@ -90,6 +137,7 @@ const deleteQuiz = async ({ quizId, token }) => {
 const recordUserResponse = async ({ quizId, questionId, selectedOption, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}/${questionId}`;
+        // const reqUrl = `http://localhost:4000/quiz/${quizId}/${questionId}`;
         const response = await axios.post(reqUrl, { selectedOption },
             {
                 headers: {
