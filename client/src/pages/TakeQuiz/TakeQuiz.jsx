@@ -90,7 +90,11 @@ function TakeQuiz() {
   }, [currentQuesNum, timer, quizData]);
 
   if (!quizData) {
-    return <ThreeDots color="#a9bcff" />;
+    return (
+      <div className={styles.threeDots}>
+        <ThreeDots color="#a9bcff" />
+      </div>
+    );
   }
 
   const currentQuestion = quizData.questions[currentQuesNum];

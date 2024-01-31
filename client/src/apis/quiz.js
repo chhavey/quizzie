@@ -4,7 +4,6 @@ import { backendUrl } from '../config/config';
 const getAllQuiz = async ({ token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/all`;
-        // const reqUrl = `http://localhost:4000/quiz/all`;
         const response = await axios.get(reqUrl, {
             headers: {
                 'Authorization': token,
@@ -26,7 +25,6 @@ const getAllQuiz = async ({ token }) => {
 const createQuiz = async ({ quizData, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/create`;
-        // const reqUrl = `http://localhost:4000/quiz/create`;
         const response = await axios.post(reqUrl, quizData, {
             headers: {
                 'Authorization': token,
@@ -47,7 +45,6 @@ const createQuiz = async ({ quizData, token }) => {
 const fetchQuiz = async ({ quizId, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}`;
-        // const reqUrl = `http://localhost:4000/quiz/${quizId}`;
         const response = await axios.get(reqUrl, {
             headers: {
                 'Authorization': token,
@@ -68,7 +65,6 @@ const fetchQuiz = async ({ quizId, token }) => {
 const fetchAnalytics = async ({ quizId, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/analytics/${quizId}`;
-        // const reqUrl = `http://localhost:4000/quiz/analytics/${quizId}`;
         const response = await axios.get(reqUrl, {
             headers: {
                 'Authorization': token,
@@ -89,7 +85,6 @@ const fetchAnalytics = async ({ quizId, token }) => {
 const editQuiz = async (quizId, { questionData, timer }, token) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}`;
-        // const reqUrl = `http://localhost:4000/quiz/${quizId}`;
         const quizDetails = {
             questions: questionData,
             timer: timer,
@@ -115,7 +110,6 @@ const editQuiz = async (quizId, { questionData, timer }, token) => {
 const deleteQuiz = async ({ quizId, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}`
-        // const reqUrl = `http://localhost:4000/quiz/${quizId}`
         const response = await axios.delete(reqUrl, {
             headers: {
                 'Authorization': token,
@@ -137,7 +131,6 @@ const deleteQuiz = async ({ quizId, token }) => {
 const recordUserResponse = async ({ quizId, questionId, selectedOption, token }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}/${questionId}`;
-        // const reqUrl = `http://localhost:4000/quiz/${quizId}/${questionId}`;
         const response = await axios.post(reqUrl, { selectedOption },
             {
                 headers: {

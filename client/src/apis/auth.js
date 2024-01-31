@@ -4,7 +4,6 @@ import { backendUrl } from '../config/config';
 const login = async (email, password) => {
     try {
         const reqUrl = `${backendUrl}/user/login`;
-        // const reqUrl = `http://localhost:4000/user/login`;
         const reqPayload = {
             email: email,
             password: password
@@ -30,7 +29,6 @@ const login = async (email, password) => {
 const register = async (name, email, password) => {
     try {
         const reqUrl = `${backendUrl}/user/register`;
-        // const reqUrl = `http://localhost:4000/user/register`;
         const reqPayload = {
             name: name,
             email: email,

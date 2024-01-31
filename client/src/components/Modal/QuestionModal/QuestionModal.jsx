@@ -37,8 +37,6 @@ function QuestionModal({
     timer: timer,
   };
 
-  console.log(quizData);
-
   const quizCreate = async () => {
     try {
       const response = await createQuiz({ quizData, token });

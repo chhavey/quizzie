@@ -9,6 +9,12 @@
   font-family: "Poppins", sans-serif;
 }
 
+.threeDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .info {
   display: flex;
   justify-content: space-between;
