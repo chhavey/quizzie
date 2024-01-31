@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./QuesAnalysis.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchAnalytics } from "../../apis/quiz";
 import { ThreeDots } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
@@ -8,6 +8,7 @@ import { formatDate, formatNum } from "../../utils/formatUtils";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import AnalysisCard from "../../components/Cards/AnalysisCard/AnalysisCard";
 import CreateModal from "../../components/Modal/CreateModal/CreateModal";
+import { isUserLoggedIn } from "../../utils/authUtils";
 
 function QuesAnalysis() {
   const [loading, setLoading] = useState(true);
@@ -15,6 +16,19 @@ function QuesAnalysis() {
   const [quesType, setQuesType] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
   const { quizId } = useParams();
+  const [loggedIn, setLoggedIn] = useState(isUserLoggedIn());
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoggedIn(isUserLoggedIn());
+    // eslint-disable-next-line
+  }, [isUserLoggedIn()]);
+
+  useEffect(() => {
+    if (!loggedIn) navigate("/");
+    // eslint-disable-next-line
+  }, [loggedIn]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -31,7 +45,6 @@ function QuesAnalysis() {
   };
 
   const getQuizAnalytics = async () => {
-    const token = localStorage.getItem("token");
     try {
       const response = await fetchAnalytics({ quizId, token });
       setAnalysisData(response.data);

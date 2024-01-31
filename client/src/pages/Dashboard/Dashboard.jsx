@@ -8,11 +8,26 @@ import { formatNum } from "../../utils/formatUtils";
 import { ThreeDots } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
 import CreateModal from "../../components/Modal/CreateModal/CreateModal";
+import { isUserLoggedIn } from "../../utils/authUtils";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [details, setDetails] = useState();
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(isUserLoggedIn());
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoggedIn(isUserLoggedIn());
+    // eslint-disable-next-line
+  }, [isUserLoggedIn()]);
+
+  useEffect(() => {
+    if (!loggedIn) navigate("/");
+    // eslint-disable-next-line
+  }, [loggedIn]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -29,7 +44,6 @@ function Dashboard() {
   };
 
   const fetchAllQuiz = async () => {
-    const token = localStorage.getItem("token");
     try {
       const response = await getAllQuiz({ token });
       setDetails(response);
@@ -42,6 +56,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchAllQuiz();
+    // eslint-disable-next-line
   }, []);
 
   return (

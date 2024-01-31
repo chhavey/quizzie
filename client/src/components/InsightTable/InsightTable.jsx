@@ -10,6 +10,7 @@ import DeleteModal from "../Modal/DeleteModal/DeleteModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateModal from "./../Modal/CreateModal/CreateModal";
+import { frontendUrl } from "../../config/config";
 
 function InsightTable({ quizData }) {
   const [editModalVisible, setEditModalVisible] = useState(false);
@@ -37,7 +38,7 @@ function InsightTable({ quizData }) {
       toast.error("Cannot copy link");
       return;
     }
-    const path = `http://localhost:3000/quiz/${quizId}`; //replace with live url
+    const path = `${frontendUrl}/quiz/${quizId}`;
     try {
       await copy(path);
       toast.success("Link copied to clipboard");

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import backendUrl from '../config/config';
+import { backendUrl } from '../config/config';
 
 const login = async (email, password) => {
     try {
@@ -15,8 +15,6 @@ const login = async (email, password) => {
             localStorage.setItem("token", response.data.data.token);
             localStorage.setItem("loggedInUser", response.data.data.loggedUser);
         }
-        console.log(response.data.message);
-
         return response.data.message;
 
     } catch (error) {

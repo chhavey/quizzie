@@ -5,6 +5,7 @@ import { ReactComponent as Close } from "../../../assets/Close.svg";
 import copy from "clipboard-copy";
 import { ToastContainer, toast } from "react-toastify";
 import { Toaster, toast as hotToast } from "react-hot-toast";
+import { frontendUrl } from "../../../config/config";
 
 function CreateModal({ onClose }) {
   const [step, setStep] = useState(1);
@@ -52,7 +53,7 @@ function CreateModal({ onClose }) {
       toast.error("Cannot copy link");
       return;
     }
-    const path = `http://localhost:3000/quiz/${quizId}`; ///to be replaced with live url
+    const path = `${frontendUrl}/quiz/${quizId}`;
     try {
       await copy(path);
       toast.success("Link copied to clipboard");
@@ -121,7 +122,7 @@ function CreateModal({ onClose }) {
           </div>
           <div className={styles.linkContainer}>
             {/* replace with live url */}
-            <p>{`http://localhost:3000/quiz/${newQuizId}`}</p>
+            <p>{`${frontendUrl}/quiz/${newQuizId}`}</p>
           </div>
           <div className={styles.shareBtnContainer}>
             <div

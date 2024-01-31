@@ -1,5 +1,5 @@
 import axios from 'axios';
-import backendUrl from '../config/config';
+import { backendUrl } from '../config/config';
 
 const getAllQuiz = async ({ token }) => {
     try {

@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Analytics from './pages/Analytics/Analytics';
 import QuesAnalysis from './pages/QuesAnalysis/QuesAnalysis';
 import TakeQuiz from './pages/TakeQuiz/TakeQuiz';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/analytics/:quizId" element={<QuesAnalysis />} />
         <Route path="/quiz/:quizId" element={<TakeQuiz />} />
         <Route path="/" element={<Access />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );

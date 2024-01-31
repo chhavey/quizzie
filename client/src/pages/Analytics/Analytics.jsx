@@ -6,11 +6,26 @@ import { getAllQuiz } from "../../apis/quiz";
 import { ThreeDots } from "react-loader-spinner";
 import { toast, Toaster } from "react-hot-toast";
 import CreateModal from "../../components/Modal/CreateModal/CreateModal";
+import { isUserLoggedIn } from "../../utils/authUtils";
+import { useNavigate } from "react-router-dom";
 
 function Analytics() {
   const [quizData, setQuizData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(isUserLoggedIn());
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoggedIn(isUserLoggedIn());
+    // eslint-disable-next-line
+  }, [isUserLoggedIn()]);
+
+  useEffect(() => {
+    if (!loggedIn) navigate("/");
+    // eslint-disable-next-line
+  }, [loggedIn]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -27,8 +42,6 @@ function Analytics() {
   };
 
   const fetchAllQuiz = async () => {
-    const token = localStorage.getItem("token");
-
     try {
       const response = await getAllQuiz({ token });
       setQuizData(response.data.allQuizzes);
@@ -41,6 +54,7 @@ function Analytics() {
 
   useEffect(() => {
     fetchAllQuiz();
+    // eslint-disable-next-line
   }, []);
 
   return (
