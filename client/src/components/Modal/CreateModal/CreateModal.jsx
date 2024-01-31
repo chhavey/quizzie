@@ -40,7 +40,7 @@ function CreateModal({ onClose }) {
       toast.error("Cannot copy link");
       return;
     }
-    const path = `http://localhost:4000/quiz/${quizId}`; ///to be replaced with deployed backend link
+    const path = `http://localhost:3000/quiz/${quizId}`; ///to be replaced with deployed backend link
     try {
       await copy(path);
       toast.success("Link copied to clipboard");
@@ -106,7 +106,7 @@ function CreateModal({ onClose }) {
             Congrats your Quiz is Published!
           </div>
           <div className={styles.linkContainer}>
-            <p>{`localhost:4000/quiz/${newQuizId}`}</p>
+            <p>{`http://localhost:3000/quiz/${newQuizId}`}</p>
           </div>
           <div className={styles.shareBtnContainer}>
             <div

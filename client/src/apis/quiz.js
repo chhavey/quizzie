@@ -23,7 +23,7 @@ const createQuiz = async ({ quizData, token }) => {
                 'Authorization': token,
             }
         });
-        return response.status;
+        return response;
     } catch (error) {
         throw new Error(error.message || 'Cannot create quiz');
     }
@@ -85,4 +85,23 @@ const deleteQuiz = async ({ quizId, token }) => {
     }
 }
 
-export { getAllQuiz, createQuiz, fetchQuiz, editQuiz, deleteQuiz, fetchAnalytics };
+// Function to record user response
+const recordUserResponse = async ({ quizId, questionId, selectedOption, token }) => {
+    try {
+        const reqUrl = `http://localhost:4000/quiz/${quizId}/${questionId}`;
+        const response = await axios.post(reqUrl, { selectedOption },
+            {
+                headers: {
+                    'Authorization': token,
+                }
+            }
+        );
+        return response.data.data.result;
+
+    } catch (error) {
+        throw new Error(error.message || 'Error recording user response');
+    }
+};
+
+
+export { getAllQuiz, createQuiz, fetchQuiz, editQuiz, deleteQuiz, fetchAnalytics, recordUserResponse };

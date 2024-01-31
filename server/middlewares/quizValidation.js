@@ -20,9 +20,9 @@ const validateQuestions = (questions, type) => {
             throw { status: 400, message: `Cannot have more than 5 questions.` };
         }
 
-        if (!question.question || !Array.isArray(question.options) || question.options.length < 2) {
-            throw { status: 400, message: 'Minimum two options are required' };
-        }
+        // if (!question.question || !Array.isArray(question.options) || question.options.length < 2) {
+        //     throw { status: 400, message: 'Minimum two options are required' };
+        // }
 
         if (type === 'Q&A' && !question.correctOption) {
             throw { status: 400, message: 'Each question must have a correct option' };

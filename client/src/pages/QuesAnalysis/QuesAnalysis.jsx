@@ -11,6 +11,7 @@ import AnalysisCard from "../../components/Cards/AnalysisCard/AnalysisCard";
 function QuesAnalysis() {
   const [loading, setLoading] = useState(true);
   const [analysisData, setAnalysisData] = useState([]);
+  const [quesType, setQuesType] = useState("");
   const { quizId } = useParams();
 
   const getQuizAnalytics = async () => {
@@ -18,6 +19,7 @@ function QuesAnalysis() {
     try {
       const response = await fetchAnalytics({ quizId, token });
       setAnalysisData(response.data);
+      setQuesType(response.data.type);
     } catch (error) {
       toast.error(error.message || "Couldnt fetch quiz analytics");
     } finally {
@@ -36,7 +38,7 @@ function QuesAnalysis() {
         <p className={styles.question}>{`Q.${index + 1} ${
           question.question
         }`}</p>
-        {question.type === "Q&A" ? (
+        {quesType === "Q&A" ? (
           <QnaCard question={question} />
         ) : (
           <PollCard question={question} />

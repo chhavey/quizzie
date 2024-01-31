@@ -9,11 +9,12 @@ function formatDate(inputDate) {
 }
 
 const formatNum = (num) => {
-    if (num === 0) {
+    if (num <= 0) {
         return '0';
-    } else if (num < 10) {
+    } else if (num > 0 && num < 10) {
         return `0${num}`;
-    } else if (num >= 1000) {
+    }
+    if (num >= 1000) {
         return `${(num / 1000).toFixed(1)}k`;
     } else {
         return num;
