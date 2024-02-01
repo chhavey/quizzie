@@ -99,7 +99,7 @@ function QuesAnalysis() {
         <AnalysisCard
           key={option._id}
           value={option.frequency}
-          label={option.option}
+          label={option.text}
         />
       ))}
     </div>

@@ -138,7 +138,8 @@ const recordUserResponse = async ({ quizId, questionId, selectedOption, token })
                 }
             }
         );
-        return response.data.data.result;
+
+        return response.data.data.result.score;
 
     } catch (error) {
         throw new Error(error.message || 'Error recording user response');

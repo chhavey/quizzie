@@ -130,6 +130,7 @@ const deleteQuiz = async (req, res) => {
 const recordUserResponse = async (req, res) => {
     const { quizId, questionId } = req.params;
     const { selectedOption } = req.body;
+    let score = 0;
 
     try {
         const quiz = await Quiz.findById(quizId);
@@ -148,26 +149,23 @@ const recordUserResponse = async (req, res) => {
         if (quiz.type === 'Q&A') {
             if (selectedOption === question.correctOption) {
                 question.correctAttempts += 1;
+                score += 1;
             } else {
                 question.incorrectAttempts += 1;
             }
             question.totalAttempts = question.correctAttempts + question.incorrectAttempts;
 
             await quiz.save();
-            const totalQuestions = quiz.questions.length;
-            const totalCorrectOptions = quiz.questions.reduce((sum, q) => sum + (q.correctAttempts > 0 ? 1 : 0), 0);
 
             handleResponse(res, 200, 'User response recorded successfully', {
                 result: {
-                    totalCorrectOptions,
-                    totalQuestions
+                    score
                 }
             });
-        } else if (quiz.type === 'poll') {
-            const selectedOptionIndex = question.options.findIndex(option => option.option === selectedOption);
-            if (selectedOptionIndex !== -1) {
-                question.options[selectedOptionIndex].frequency += 1;
-                await quiz.save();
+
+        } else if (quiz.type === 'Poll') {
+            if (selectedOption !== -1) {
+                question.options[selectedOption].frequency += 1;
 
                 handleResponse(res, 200, 'User response recorded successfully');
 
@@ -175,6 +173,8 @@ const recordUserResponse = async (req, res) => {
                 handleResponse(res, 400, 'Invalid selected option.');
 
             }
+            await quiz.save();
+
         }
     } catch (error) {
         errorHandler(res, error);

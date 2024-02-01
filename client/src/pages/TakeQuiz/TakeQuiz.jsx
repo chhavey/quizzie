@@ -16,7 +16,6 @@ function TakeQuiz() {
   const [userResponses, setUserResponses] = useState([]);
   const [isQuizSubmitted, setIsQuizSubmitted] = useState(false);
   const [score, setScore] = useState(0);
-  const [total, setTotal] = useState(0);
 
   const takeQuiz = async () => {
     const token = localStorage.getItem("token");
@@ -48,15 +47,15 @@ function TakeQuiz() {
         selectedOption: optionIndex.toString(),
         token,
       });
-      setScore(response.totalCorrectOptions);
-      setTotal(response.totalQuestions);
+      setScore(response);
     } catch (error) {
-      toast.error(error.message || "Error recording user response:");
+      if (quizType === "Q&A") {
+        console.log("Error recording user response");
+      }
     }
   };
 
   const handleSubmitQuiz = () => {
-    // Calculate the user's final score
     setIsQuizSubmitted(true);
   };
 
@@ -103,7 +102,11 @@ function TakeQuiz() {
     <>
       <Toaster />
       {isQuizSubmitted ? (
-        <Success type={quizType} score={score} total={total} />
+        <Success
+          type={quizType}
+          score={score}
+          total={quizData.questions.length}
+        />
       ) : (
         <div className={styles.container}>
           <div className={styles.wrapper}>

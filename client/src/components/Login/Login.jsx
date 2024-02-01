@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await login(email, password);
       if (response) {
@@ -23,6 +25,8 @@ function Login() {
       toast.error(error.message || "Login failed.", {
         duration: 4000,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,7 +58,7 @@ function Login() {
         </div>
       </div>
       <button className={styles.btn} type="submit">
-        Log In
+        {loading ? "Logging in..." : "Log In"}
       </button>
     </form>
   );

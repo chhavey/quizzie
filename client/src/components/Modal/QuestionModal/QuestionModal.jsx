@@ -156,12 +156,20 @@ function QuestionModal({
     const isInvalid = questionData.some((question) => {
       const isQuestionInvalid =
         !question.question.trim() ||
-        question.options.some((option) => !option.text.trim()) ||
-        !question.responseType.trim();
+        question.options.some((option) => {
+          if (question.responseType === "Text") {
+            return !option.text.trim();
+          } else if (question.responseType === "Image") {
+            return !option.image.trim();
+          } else if (question.responseType === "Text-Image") {
+            return !option.text.trim() || !option.image.trim();
+          }
+          return false;
+        });
 
       // Only validate correctOption for Q&A type
       const isCorrectOptionInvalid =
-        quizType === "Q&A" && !question.correctOption.trim();
+        quizType === "Q&A" && !question.correctOption;
 
       return isQuestionInvalid || isCorrectOptionInvalid;
     });

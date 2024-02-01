@@ -16,6 +16,8 @@ function Signup({ signupSuccess }) {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const validateForm = () => {
     let isValid = true;
 
@@ -58,6 +60,8 @@ function Signup({ signupSuccess }) {
       return;
     }
 
+    setLoading(true);
+
     try {
       const response = await register(name, email, password);
       if (response) {
@@ -67,6 +71,8 @@ function Signup({ signupSuccess }) {
       toast.error(error.message || "Sign Up failed.", {
         duration: 4000,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -136,7 +142,7 @@ function Signup({ signupSuccess }) {
         </div>
       </div>
       <button className={styles.btn} type="submit">
-        Sign Up
+        {loading ? "Almost There..." : "Sign Up"}
       </button>
     </form>
   );
