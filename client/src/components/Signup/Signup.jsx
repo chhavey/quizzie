@@ -91,31 +91,39 @@ function Signup({ signupSuccess }) {
       <Toaster />
       <div className={styles.formFields}>
         <div className={styles.inputContainer}>
-          <label className={styles.labelname}>Name</label>
+          <label className={styles.labelname} htmlFor="name">
+            Name
+          </label>
           <input
             className={nameError ? styles.errorField : styles.inputField}
             type="text"
             id="name"
             name="name"
+            autoComplete="name"
             placeholder={nameError || ""}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className={styles.inputContainer}>
-          <label className={styles.labelname}>Email</label>
+          <label className={styles.labelname} htmlFor="email">
+            Email
+          </label>
           <input
             className={emailError ? styles.errorField : styles.inputField}
             type="text"
             id="email"
             name="email"
+            autoComplete="email"
             placeholder={emailError || ""}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className={styles.inputContainer}>
-          <label className={styles.labelname}>Password</label>
+          <label className={styles.labelname} htmlFor="password">
+            Password
+          </label>
           <input
             className={passwordError ? styles.errorField : styles.inputField}
             type="password"
@@ -127,7 +135,9 @@ function Signup({ signupSuccess }) {
           />
         </div>
         <div className={styles.inputContainer}>
-          <label className={styles.labelname}>Confirm Password</label>
+          <label className={styles.labelname} htmlFor="confirmPassword">
+            Confirm Password
+          </label>
           <input
             className={
               confirmPasswordError ? styles.errorField : styles.inputField

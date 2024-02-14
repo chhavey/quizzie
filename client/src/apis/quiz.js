@@ -3,10 +3,14 @@ import { backendUrl } from '../config/config';
 
 const getAllQuiz = async ({ token }) => {
     try {
+        const name = localStorage.getItem("loggedInUser");
         const reqUrl = `${backendUrl}/quiz/all`;
         const response = await axios.get(reqUrl, {
             headers: {
                 'Authorization': token,
+            },
+            data: {
+                name: name
             }
         });
         return response.data;
@@ -42,14 +46,16 @@ const createQuiz = async ({ quizData, token }) => {
     }
 }
 
-const fetchQuiz = async ({ quizId, token }) => {
+const fetchQuiz = async ({ quizId }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}`;
-        const response = await axios.get(reqUrl, {
-            headers: {
-                'Authorization': token,
-            }
-        });
+        const response = await axios.get(reqUrl
+            //     , {
+            //     headers: {
+            //         'Authorization': token,
+            //     }
+            // }
+        );
         return response.data;
     } catch (error) {
         if (error.response && error.response.data) {
@@ -128,15 +134,16 @@ const deleteQuiz = async ({ quizId, token }) => {
 }
 
 // Function to record user response
-const recordUserResponse = async ({ quizId, questionId, selectedOption, token }) => {
+const recordUserResponse = async ({ quizId, questionId, selectedOption }) => {
     try {
         const reqUrl = `${backendUrl}/quiz/${quizId}/${questionId}`;
-        const response = await axios.post(reqUrl, { selectedOption },
-            {
-                headers: {
-                    'Authorization': token,
-                }
-            }
+        const response = await axios.post(reqUrl, { selectedOption }
+
+            // ,{
+            //     headers: {
+            //         'Authorization': token,
+            //     }
+            // }
         );
 
         return response.data.data.result.score;

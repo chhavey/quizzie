@@ -18,9 +18,8 @@ function TakeQuiz() {
   const [score, setScore] = useState(0);
 
   const takeQuiz = async () => {
-    const token = localStorage.getItem("token");
     try {
-      const response = await fetchQuiz({ quizId, token });
+      const response = await fetchQuiz({ quizId });
       setQuizType(response.data.type);
       setQuizData(response.data);
       setTimer(response.data.timer);
@@ -39,13 +38,11 @@ function TakeQuiz() {
     updatedResponses[currentQuesNum] = optionIndex;
     setUserResponses(updatedResponses);
 
-    const token = localStorage.getItem("token");
     try {
       const response = await recordUserResponse({
         quizId,
         questionId: quizData.questions[currentQuesNum]._id,
         selectedOption: optionIndex.toString(),
-        token,
       });
       setScore(response);
     } catch (error) {

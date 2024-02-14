@@ -35,18 +35,23 @@ function Login() {
       <Toaster />
       <div className={styles.formFields}>
         <div className={styles.inputContainer}>
-          <label className={styles.labelname}>Email</label>
+          <label className={styles.labelname} htmlFor="email">
+            Email
+          </label>
           <input
             className={styles.inputField}
             type="text"
             id="email"
             name="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className={styles.inputContainer}>
-          <label className={styles.labelname}>Password</label>
+          <label className={styles.labelname} htmlFor="password">
+            Password
+          </label>
           <input
             className={styles.inputField}
             type="password"

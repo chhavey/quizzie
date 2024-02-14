@@ -6,7 +6,8 @@ const errorHandler = require('../middlewares/errorHandler');
 //to fetch all quiz
 const fetchAllQuiz = async (req, res) => {
     try {
-        const allQuizzes = await Quiz.find({});
+        const { name } = req.body.user;
+        const allQuizzes = await Quiz.find({ creator: name });
         const totalQuizzes = allQuizzes.length;
         const totalQuestions = allQuizzes.reduce((sum, quiz) => sum + quiz.questions.length, 0);
         const totalImpressions = allQuizzes.reduce((sum, quiz) => sum + quiz.impressions, 0);
